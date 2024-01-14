@@ -33,5 +33,10 @@ $ cmake ..
 $ ./project
 ```
 
+6. (Optional) Check memory leaks
+```
+$ valgrind --leak-check=full -v --track-origins=yes ./project
+```
+
 ## Stats
 

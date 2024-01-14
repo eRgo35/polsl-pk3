@@ -6,9 +6,15 @@
 template <typename T>
 class Node
 {
-private:
+public:
+    std::unique_ptr<Node> next;
     T data;
-    std::shared_ptr<Node> head;
+
+    Node(T _data)
+    {
+        next = nullptr;
+        data = _data;
+    }
 };
 
 #endif
