@@ -8,6 +8,11 @@ message(STATUS "Michał Czyż (c) 2024")
 message(STATUS "GNU GPL 3")
 
 add_library(
+    test_lib
+    include/test.hpp
+)
+
+add_library(
     linked_list
     include/list.hpp
     include/node.hpp
@@ -19,6 +24,9 @@ add_library(
 )
 
 add_executable(project src/main.cpp)
+
+target_link_libraries(project PRIVATE test_lib)
+set_target_properties(test_lib PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(project PRIVATE linked_list)
 set_target_properties(linked_list PROPERTIES LINKER_LANGUAGE CXX)

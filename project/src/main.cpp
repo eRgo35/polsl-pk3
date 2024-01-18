@@ -1,88 +1,52 @@
 #include <iostream>
-#include <sstream>
+#include <vector>
 #include "../include/list.hpp"
+#include "../include/test.hpp"
 
 int main()
 {
-    std::cout << "Miniprojekt PK 3" << std::endl;
-    std::cout << "Temat: Lista Jednokierunkowa" << std::endl;
+    std::cout << GREEN << "Miniprojekt PK 3" << std::endl
+              << BRIGHT_GREEN << "Temat: Lista Jednokierunkowa" << RESET << std::endl
+              << std::endl
+              << BRIGHT_BLUE << "Part I - Test kompatybilności typów" << RESET << std::endl;
 
-    List<int> exmaple_list;
-    exmaple_list.push_front(35);
-    exmaple_list.push_front(24);
-    exmaple_list.push_front(24);
-    exmaple_list.push_front(24);
-    exmaple_list.push_front(26);
+    std::vector<int> int_vector = {35, 12, 65, 98, 11, 90};
+    test_list<int>(int_vector);
 
-    std::cout << exmaple_list << std::endl;
+    std::vector<double> double_vector = {3.14159, 2.71, 1.41, 1.111, 69.420};
+    test_list<double>(double_vector);
 
-    exmaple_list.pop_front();
+    std::vector<bool> bool_vector = {true, true, true, false, false, true, false};
+    test_list<bool>(bool_vector);
 
-    std::cout << exmaple_list << std::endl;
+    std::vector<std::string> string_vector = {"Lorem", "Ipsum", "Dolor", "Sit", "Amet"};
+    test_list<std::string>(string_vector);
 
-    std::cout << exmaple_list.at(3) << std::endl;
-
-    exmaple_list.print_all();
-
-    List<int> exmaple_list2;
-    exmaple_list2.push_front(1);
-    exmaple_list2.push_front(35);
-    exmaple_list2.push_front(24);
-    exmaple_list2.push_front(25);
-    exmaple_list2.push_front(24);
-    exmaple_list2.push_front(26);
-
-    std::cout << "Find pos of 35:   " << exmaple_list2.find(35) << std::endl;
-
-    std::cout << "Find pos of 24:   " << exmaple_list2.find(24) << std::endl;
-
-    std::cout << "Find pos of 99:   " << exmaple_list2.find(99) << std::endl;
-
-    std::cout << exmaple_list2 << std::endl;
-
-    exmaple_list2.erase(2);
-
-    std::cout << exmaple_list2 << std::endl;
+    std::cout << std::endl
+              << BRIGHT_BLUE << "Part II - Test niestandardowych typów" << RESET << std::endl;
     
-    List<int> cin_list;
-    std::stringstream test("10");
+    log_step("1. Song class init", true);
     
-    test >> cin_list;
-    cin_list.push_front(1);
-    cin_list.push_front(35);
-    cin_list.push_front(24);
-    cin_list.push_front(25);
+    Song initald("Don't stop the music", "Lou Grant");
+    std::stringstream initiald_info;
+    initiald_info << initald.getId() << ". " << initald.getArtist() << " - " << initald.getName();
+    log_step(initiald_info.str());
 
-    std::cout << cin_list << std::endl;
+    Song jpop("スタイルのあった恋", "勇直子");
+    std::stringstream jpop_info;
+    jpop_info << jpop.getId() << ". " << jpop.getArtist() << " - " << jpop.getName();
+    log_step(jpop_info.str());
 
-    List<int> moved_list = std::move(cin_list);
+    List<Song> song_list;
+    song_list.push_front(jpop);
+    song_list.push_front(initald);
 
-    std::cout << cin_list << std::endl;
-    std::cout << moved_list << std::endl;
+    std::cout << LIGHT_GRAY << song_list.front().getName() << std::endl;
 
+    std::cout << std::endl
+              << BRIGHT_BLUE << "Part III - Test szybkości wzlgędem std::list" << RESET << std::endl;
 
-    List<int> copied_list = moved_list;
-    moved_list.pop_front();
-
-    std::cout << copied_list << std::endl;
-    std::cout << moved_list << std::endl;
-
-    moved_list.insert(999, 2);
-
-    std::cout << moved_list << std::endl;
-
-    moved_list.push_back(999);
-    moved_list.push_back(998);
-
-    std::cout << moved_list << std::endl;
-
-    int popped = moved_list.pop_back();
-    std::cout << moved_list << std::endl;
-
-    std::cout << popped << std::endl;
-    std::cout << moved_list.pop_front() << std::endl;
-
-    std::cout << moved_list.front() << std::endl;
-
+    std::cout << std::endl
+              << GREEN << "Wszystkie testy zostały zakończone pomyślnie!" << RESET << std::endl;
     return 0;
 }

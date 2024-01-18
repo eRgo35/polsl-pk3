@@ -48,12 +48,28 @@ public:
 
     T operator=(List &list)
     {
+        Node<T> *point = list.head.get();
+
+        std::unique_ptr<Node<T>> new_head = std::move(std::make_unique<Node<T>>(point->data));
+        Node<T> *point_copy = new_head.get();
+        point = point->next.get();
+
+        while (point)
+        {
+            point_copy->next = std::move(std::make_unique<Node<T>>(point->data));
+            point_copy = point_copy->next.get();
+            point = point->next.get();
+        }
+
+        head = std::move(new_head);
+
         T data = list.pop_back();
         return data;
     }
 
     T operator=(List &&list)
-    {
+    {   
+        head = std::move(list.head);
         T data = list.pop_back();
         return data;
     }
