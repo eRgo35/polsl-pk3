@@ -10,12 +10,12 @@
 
 void log_step(std::string message, bool major = false)
 {
-    if (major)
-    {
-        std::cout << BRIGHT_YELLOW << message << RESET << std::endl;
-        return;
-    }
-    std::cout << BRIGHT_CYAN << message << RESET << std::endl;
+  if (major)
+  {
+     std::cout << BRIGHT_YELLOW << message << RESET << std::endl;
+     return;
+  }
+  std::cout << BRIGHT_CYAN << message << RESET << std::endl;
 }
 
 template <typename T>
@@ -118,6 +118,13 @@ public:
     {
         static int nextId = 1;
         return nextId++;
+    }
+
+    bool operator==(Song &other)
+    {
+        if (id == other.getId())
+            return true;
+        return false;
     }
 
     int getId() const
