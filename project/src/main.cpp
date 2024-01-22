@@ -52,7 +52,17 @@ int main()
 
     std::cout << LIGHT_GRAY << song_list.at(1).getName() << RESET << std::endl;
 
-    log_step("2. Custom array of arrays", true);
+    log_step("2. 2D Vector", true);
+
+    List<std::vector<std::vector<int>>> transition;
+
+    transition.push_front({{1, 555, 321}, {123, 432, 551}});
+    transition.push_front({{8, 487, 953}, {1, 0, 0}});
+
+    for (int i = 0; i < 2; i++)
+        for (int j = 0; j < 2; j++)
+            for (int k = 0; k < 3; k++)
+                std::cout << transition.at(i).at(j).at(k) << std::endl;
 
     std::cout << std::endl
               << BRIGHT_BLUE << "Part III - Test szybkości wzlgędem std::list" << RESET << std::endl;
@@ -117,7 +127,52 @@ int main()
 
     log_step("2. Access limits", true);
 
+    {
+        std::list<int> standard_list;
+        List<int> list;
+
+        for (int i = 0; i < 1'000'000; i++)
+        {
+            standard_list.push_front(distr(generator));
+        }
+
+        auto standard_start = std::chrono::high_resolution_clock::now();
+        auto temp = standard_list.back();
+        auto standard_end = std::chrono::high_resolution_clock::now();
+        auto standard_duration = std::chrono::duration_cast<std::chrono::milliseconds>(standard_end - standard_start);
+
+        std::cout << "std::list front() access time: " << standard_duration.count() << " ms" << std::endl;
+
+        for (int i = 0; i < 1'000'000; i++)
+        {
+            list.push_front(distr(generator));
+        }
+        
+        auto list_start = std::chrono::high_resolution_clock::now();
+        list.at(999'999);
+        auto list_end = std::chrono::high_resolution_clock::now();
+        auto list_duration = std::chrono::duration_cast<std::chrono::milliseconds>(list_end - list_start);
+
+        std::cout << "List front() access time: " << list_duration.count() << " ms" << std::endl;
+    }
+
     log_step("3. find() limits", true);
+
+    {
+        List<int> list;
+
+        for (int i = 0; i < 1'000'000; i++)
+        {
+            list.push_front(distr(generator));
+        }
+        
+        auto list_start = std::chrono::high_resolution_clock::now();
+        int loc = list.find(666);
+        auto list_end = std::chrono::high_resolution_clock::now();
+        auto list_duration = std::chrono::duration_cast<std::chrono::milliseconds>(list_end - list_start);
+
+        std::cout << "List find() location: " << loc << "| time: " << list_duration.count() << " ms" << std::endl;
+    }
 
     std::cout << std::endl
               << GREEN << "Wszystkie testy zostały zakończone pomyślnie!" << RESET << std::endl;
