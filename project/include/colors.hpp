@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+// this is a simple header file
+// that contains all linux shell terminal colors
+// used for formatting the output shell
+// because i'm too lazy too setup an external library for that :p
+
 std::string BLACK = "\033[0;30m";
 std::string RED = "\033[1;31m";
 std::string GREEN = "\033[1;32m";

@@ -10,11 +10,14 @@
 
 int main()
 {
+    // Test suite header
     std::cout << GREEN << "Miniprojekt PK 3" << std::endl
               << BRIGHT_GREEN << "Temat: Lista Jednokierunkowa" << RESET << std::endl
               << std::endl
               << BRIGHT_BLUE << "Part I - Test kompatybilności typów" << RESET << std::endl;
 
+    // Test data inits in vectors
+    // and testing
     std::vector<int> int_vector = {35, 12, 65, 98, 11, 90};
     test_list<int>(int_vector);
 
@@ -30,6 +33,7 @@ int main()
     std::cout << std::endl
               << BRIGHT_BLUE << "Part II - Test niestandardowych typów" << RESET << std::endl;
 
+    // Testing list for user-defined custom class
     log_step("1. Song class init", true);
 
     Song initald("Don't stop the music", "Lou Grant");
@@ -52,6 +56,7 @@ int main()
 
     std::cout << LIGHT_GRAY << song_list.at(1).getName() << RESET << std::endl;
 
+    // Testing list for custom stl object
     log_step("2. 2D Vector", true);
 
     List<std::vector<std::vector<int>>> transition;
@@ -67,12 +72,18 @@ int main()
     std::cout << std::endl
               << BRIGHT_BLUE << "Part III - Test szybkości wzlgędem std::list" << RESET << std::endl;
 
+    // Complexity speed test
     log_step("1. Memory limits (on 1'000'000 random elements)", true);
 
+    // These inits are for a custom random generator
+    // It is set to generate all signed 32bit integers uniformly
     std::random_device rand_dev;
     std::mt19937 generator(rand_dev());
     std::uniform_int_distribution<int> distr(-2'147'483'648, 2'147'483'647);
 
+    // all tests are done in a separate curly braces to keep repeating variable names
+    // additionally, there's no need to keep all those initialized lists in memory so after
+    // the test completes, it gets all freed
     // push_back
     {
         std::list<int> standard_list;
@@ -124,7 +135,6 @@ int main()
         std::cout << "List push_front() fill time: " << list_duration.count() << " ms" << std::endl;
     }
 
-
     log_step("2. Access limits", true);
 
     {
@@ -147,7 +157,7 @@ int main()
         {
             list.push_front(distr(generator));
         }
-        
+
         auto list_start = std::chrono::high_resolution_clock::now();
         list.at(999'999);
         auto list_end = std::chrono::high_resolution_clock::now();
@@ -165,7 +175,7 @@ int main()
         {
             list.push_front(distr(generator));
         }
-        
+
         auto list_start = std::chrono::high_resolution_clock::now();
         int loc = list.find(666);
         auto list_end = std::chrono::high_resolution_clock::now();

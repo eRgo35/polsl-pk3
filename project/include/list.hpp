@@ -6,6 +6,8 @@
 #include <iostream>
 #include <memory>
 
+/// @brief main list template implementation
+/// @tparam T 
 template <typename T>
 class List
 {
@@ -13,11 +15,13 @@ private:
     std::unique_ptr<Node<T>> head;
 
 public:
+    /// @brief default constructor creating an empty head
     List()
     {
         head = nullptr;
     }
 
+    /// @brief copy constructor
     List(const List &list)
     {
         Node<T> *point = list.head.get();
@@ -36,16 +40,19 @@ public:
         head = std::move(new_head);
     }
 
+    /// @brief move constructor
     List(List &&list)
     {
         head = std::move(list.head);
     }
 
+    /// @brief destructor just calls a clear function
     ~List()
     {
         clear();
     }
 
+    /// @brief copy equals operator
     T operator=(List &list)
     {
         Node<T> *point = list.head.get();
@@ -67,6 +74,7 @@ public:
         return data;
     }
 
+    /// @brief move equals operator
     T operator=(List &&list)
     {   
         head = std::move(list.head);
@@ -74,17 +82,21 @@ public:
         return data;
     }
 
+    /// @brief stream operators defined outside of the class
     template <typename U>
     friend std::istream &operator>>(std::istream &is, const List<U> &list);
 
+    /// @brief stream operators defined outside of the class
     template <typename U>
     friend std::ostream &operator<<(std::ostream &os, const List<U> &list);
 
+    /// @brief returns a first element of the list
     T front()
     {
         return head->data;
     }
 
+    /// @brief clears all nodes of the list
     void clear()
     {
         while (head)
@@ -93,6 +105,7 @@ public:
         }
     }
 
+    /// @brief adds a new element to the beginning of the list
     void push_front(T data)
     {
         std::unique_ptr<Node<T>> new_head = std::make_unique<Node<T>>(data);
@@ -103,6 +116,7 @@ public:
         head = std::move(new_head);
     }
 
+    /// @brief removes an element from the beginning of the list
     T pop_front()
     {
         if (head == nullptr)
@@ -114,6 +128,7 @@ public:
         return behead->data;
     }
 
+    /// @brief returns an element at a given position
     T at(int position)
     {
         if (position < 0)
@@ -134,6 +149,7 @@ public:
         return result;
     }
 
+    /// @brief prints all elements by using std::cout
     void print_all()
     {
         Node<T> *point = head.get();
@@ -151,6 +167,7 @@ public:
         std::cout << " ]" << std::endl;
     }
 
+    /// @brief inserts a new element at a given position
     void insert(T data, int position)
     {
         if (position < 0)
@@ -175,6 +192,7 @@ public:
         }
     }
 
+    /// @brief removes an element at a given position
     void erase(int position)
     {
         if (position < 0)
@@ -199,6 +217,7 @@ public:
         }
     }
 
+    /// @brief add a new element to the end of the list
     void push_back(T data)
     {
         Node<T> *point = head.get();
@@ -216,6 +235,7 @@ public:
         }
     }
 
+    /// @brief removes an element from the end of the list
     T pop_back()
     {
         Node<T> *parent_point = head.get();
@@ -233,6 +253,7 @@ public:
         return popped;
     }
 
+    /// @brief returns a location of an element specified in a query; if value exists multiple times, first element will be returned
     int find(T query)
     {
         int position = 0;

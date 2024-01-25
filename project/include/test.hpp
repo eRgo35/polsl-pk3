@@ -8,6 +8,9 @@
 #include "list.hpp"
 #include "colors.hpp"
 
+/// @brief responsible for generating cout messages with pre-defined styling
+/// @param message 
+/// @param major 
 void log_step(std::string message, bool major = false)
 {
   if (major)
@@ -21,6 +24,7 @@ void log_step(std::string message, bool major = false)
 template <typename T>
 void test_list(std::vector<T> &test_vector)
 {
+    // this checks current compiler variables and gets human-friendly type names
     std::string type;
 
 #ifndef _MSC_VER
@@ -95,6 +99,7 @@ void test_list(std::vector<T> &test_vector)
     std::cout << LIGHT_GRAY << moved_list << std::endl;
 }
 
+/// @brief user-defined class example
 class Song
 {
 private:
@@ -107,8 +112,12 @@ private:
     int year;
 
 public:
+    /// @brief passing song without any arguments will generate an empty song with a unique id
     Song() : id(generateId()){};
 
+    /// @brief constructor generating a new song based on provided name and aritst
+    /// @param name 
+    /// @param artist 
     Song(std::string name, std::string artist) : name(name), artist(artist)
     {
         id = generateId();
@@ -116,10 +125,14 @@ public:
 
     int generateId()
     {
+        // every new instance of this class gets a new id
         static int nextId = 1;
         return nextId++;
     }
 
+    /// @brief equal sign operator function to check if 2 songs are the same (they should have the same id)
+    /// @param other 
+    /// @return 
     bool operator==(Song &other)
     {
         if (id == other.getId())
