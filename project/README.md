@@ -1,6 +1,6 @@
-# One-way Linked List
+# Singly Linked List
 ## Description
-This is a basic program that tests one-way linked list library created by Michał Czyż
+This is a basic program that tests singly linked list library created by Michał Czyż
 
 ## Libraries
 This project utilizes `cmake`.
@@ -40,3 +40,13 @@ $ valgrind --leak-check=full -v --track-origins=yes ./project
 
 ## Stats
 
+Date : 2024-01-25 15:44:12
+
+Directory polsl-pk3/project
+
+Total : 6 files,  583 codes, 55 comments, 166 blanks, all 804 lines
+
+| language | files | code | comment | blank | total |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| C++ | 5 | 551 | 55 | 155 | 761 |
+| Markdown | 1 | 32 | 0 | 11 | 43 |
